@@ -1,4 +1,3 @@
-import random
 import requests
 import boto3
 import json
@@ -11,15 +10,6 @@ def buscar_pokemon_por_nome(nome):
     else:
         return None
 
-def buscar_pokemon_por_tipo(tipo):
-    url = f"https://pokeapi.co/api/v2/type/{tipo.lower()}"
-    response = requests.get(url)
-    if response.status_code == 200:
-        # Escolhe um Pokémon aleatório do tipo
-        pokemon = random.choice(response.json()["pokemon"])
-        return buscar_pokemon_por_nome(pokemon["pokemon"]["name"])
-    else:
-        return None
 def chamar_bedrock(prompt):
   """Chama a API do Amazon Bedrock e retorna a resposta."""
   client = boto3.client('bedrock-runtime', region_name='us-east-1')
@@ -44,12 +34,9 @@ def buscar_curiosidade(pokemon):
 
 def main():
     while True:
-        pergunta = input("Qual Pokémon você procura? (Digite o nome ou o tipo): ")
+        pergunta = input("Qual Pokémon você procura? (Digite o nome ou sair): ")
         if pergunta.lower() == 'sair':
             break
-
-        if pergunta.lower() in ["fogo", "água", "elétrico", ...]:  # Lista de tipos
-            pokemon = buscar_pokemon_por_tipo(pergunta)
         else:
             pokemon = buscar_pokemon_por_nome(pergunta)
 
@@ -58,6 +45,7 @@ def main():
             print(f"Pokémon: {pokemon['name']}")
             print(f"Tipo: {pokemon['types'][0]['type']['name']}")
             print(f"Curiosidade: {curiosidade}")
+            print("-------------------------------------")
         else:
             print("Pokémon não encontrado.")
 
