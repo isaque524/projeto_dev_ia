@@ -13,7 +13,7 @@ def buscar_pokemon_por_nome(nome):
 def chamar_bedrock(prompt):
   """Chama a API do Amazon Bedrock e retorna a resposta."""
   client = boto3.client('bedrock-runtime', region_name='us-east-1')
-  model_id = "amazon.titan-text-premier-v1:0"  # Substitua pelo ID do seu modelo
+  model_id = "amazon.titan-text-premier-v1:0" 
 
   response = client.converse(
       modelId=model_id,
